@@ -122,6 +122,8 @@ function tns() {
     tmux attach -t $1 || tmux new -s $1
 }
 
+cx() {cd "$@" && l; }
+
 alias psh="poetry shell"
 alias pin="poetry install"
 alias pup="poetry unpdate"
