@@ -127,5 +127,8 @@ alias pin="poetry install"
 alias pup="poetry unpdate"
 alias k="kubectl"
 
+# Z folder jumper
+. ~/.local/bin/z 
+
 # call neofetch at the and to disply info
 neofetch
