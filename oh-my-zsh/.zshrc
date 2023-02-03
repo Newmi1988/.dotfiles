@@ -128,6 +128,7 @@ alias psh="poetry shell"
 alias pin="poetry install"
 alias pup="poetry unpdate"
 alias k="kubectl"
+alias gcof='git checkout $(git branch | fzf-tmux -d15)'
 
 # Z folder jumper
 . ~/.local/bin/z 
