@@ -1,0 +1,8 @@
+#/usr/bin/env bash
+
+target=$(tmux ls | fzf | cut -d ":" -f1)
+if [ -n "$TMUX" ]; then
+    tmux switch -t $target
+else
+    tmux attach -t $target
+fi 
