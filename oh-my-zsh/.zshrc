@@ -73,6 +73,7 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git
+    git-auto-fetch
 	zsh-autosuggestions
 	docker
 	helm
