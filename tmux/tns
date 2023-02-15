@@ -1,9 +1,8 @@
 #/usr/bin/env bash
 
 function tns() {
-    if [ -z "$1" ];
-    then 
-            echo "WARNING: tmux session nesting not allowed"; 
+    if [ -n "$TMUX" ]; then
+        echo "WARNING: tmux session nesting not allowed"; 
     else 
         tmux attach -t $1 || tmux new -s $1
     fi

@@ -122,7 +122,7 @@ alias pin="poetry install"
 alias pup="poetry unpdate"
 alias k="kubectl"
 alias gcof='git checkout $(git branch | fzf-tmux -d15)'
-
+alias v="fd --type f --hidden --exclude .git --exclude .venv | fzf-tmux --height 70% --info inline -p --preview-window '~3' --reverse  --preview 'bat --color=always {}' | xargs nvim"
 
 
 # Z folder jumper
