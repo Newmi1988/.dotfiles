@@ -1,0 +1,2 @@
+ln -sfi ~/.config/oh-my-zsh/findgit ~/.local/bin/findgit
+ln -sfi ~/.config/oh-my-zsh/cdr ~/.local/bin/cdr

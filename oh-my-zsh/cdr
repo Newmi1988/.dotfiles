@@ -1,0 +1,10 @@
+#/usr/bin/env bash
+
+function cdr() {
+    if [ -z "$1" ];
+    then 
+            echo "Specify a directory"; 
+    else 
+        cd $(findgit $1);
+    fi
+}

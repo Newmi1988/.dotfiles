@@ -115,10 +115,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-function tns() {
-    tmux attach -t $1 || tmux new -s $1
-}
-
 cx() {cd "$@" && l; }
 
 alias psh="poetry shell"
@@ -126,6 +122,8 @@ alias pin="poetry install"
 alias pup="poetry unpdate"
 alias k="kubectl"
 alias gcof='git checkout $(git branch | fzf-tmux -d15)'
+
+
 
 # Z folder jumper
 . ~/.local/bin/z 

@@ -1,0 +1,15 @@
+#/usr/bin/env bash
+
+function tms() {
+    if [ -z "$1" ]; then 
+            echo "Specify a directory"; 
+    else 
+        target=$(findgit $1)
+        session_name=$(basename $target)
+        echo "$target"
+        echo "$session_name"
+        tsd $session_name $target
+    fi
+}
+
+tms $1

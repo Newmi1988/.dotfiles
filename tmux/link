@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-ln -s ~/.config/tmux/tss ~/.local/bin/tss
-
