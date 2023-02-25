@@ -27,3 +27,5 @@ systemd/
 user-dirs.dirs
 user-dirs.locale
 xfce4/
+Thunar
+mimeapps.list
