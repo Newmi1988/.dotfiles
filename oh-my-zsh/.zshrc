@@ -10,7 +10,7 @@ export PATH="/opt/homebrew/Cellar/git/2.40.0/share/git-core/contrib/git-jump:$PA
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -82,7 +82,6 @@ plugins=(
 	rust
     you-should-use
     autoupdate
-    zsh-vi-mode
 	)
 
 source $ZSH/oh-my-zsh.sh
@@ -117,6 +116,20 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# pure prompt
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    fpath+=($HOME/.zsh/pure)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    fpath+=("$(brew --prefix)/share/zsh/site-functions")
+fi
+zstyle :prompt:pure:git:branch color cyan
+zstyle :prompt:pure:user color magenta
+zstyle :prompt:pure:host color cyan
+
+autoload -U promptinit; promptinit
+prompt pure
+
+
 cx() {cd "$@" && l; }
 
 alias psh="poetry shell"
@@ -125,6 +138,8 @@ alias pup="poetry unpdate"
 alias k="kubectl"
 alias gcof='git checkout $(git branch | fzf-tmux -d15)'
 alias v="fd --type f --hidden --exclude .git --exclude .venv | fzf-tmux --height 70% --info inline -p --preview-window '~3' --reverse  --preview 'bat --color=always {}' | xargs nvim"
+alias ll="exa --long --git -g --octal-permissions"
+alias cwd="et --icons --size-left --prune --disk-usage physical --dirs-first -c"
 
 
 # Z folder jumper
