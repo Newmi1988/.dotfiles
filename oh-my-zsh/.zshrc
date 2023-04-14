@@ -117,17 +117,19 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # pure prompt
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    fpath+=($HOME/.zsh/pure)
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    fpath+=("$(brew --prefix)/share/zsh/site-functions")
-fi
-zstyle :prompt:pure:git:branch color cyan
-zstyle :prompt:pure:user color magenta
-zstyle :prompt:pure:host color cyan
+# if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+#     fpath+=($HOME/.zsh/pure)
+# elif [[ "$OSTYPE" == "darwin"* ]]; then
+#     fpath+=("$(brew --prefix)/share/zsh/site-functions")
+# fi
+# zstyle :prompt:pure:git:branch color cyan
+# zstyle :prompt:pure:user color magenta
+# zstyle :prompt:pure:host color cyan
 
-autoload -U promptinit; promptinit
-prompt pure
+# autoload -U promptinit; promptinit
+# prompt pure
+eval "$(starship init zsh)"
+
 
 
 cx() {cd "$@" && l; }
@@ -139,6 +141,7 @@ alias k="kubectl"
 alias gcof='git checkout $(git branch | fzf-tmux -d15)'
 alias v="fd --type f --hidden --exclude .git --exclude .venv | fzf-tmux --height 70% --info inline -p --preview-window '~3' --reverse  --preview 'bat --color=always {}' | xargs nvim"
 alias ll="exa --long --git -g --octal-permissions"
+alias lla="exa --long -a --git -g --octal-permissions"
 alias cwd="et --icons --size-left --prune --disk-usage physical --dirs-first -c"
 
 
