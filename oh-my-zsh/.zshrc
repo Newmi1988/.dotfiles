@@ -129,6 +129,7 @@ eval "$(pyenv init -)"
 # autoload -U promptinit; promptinit
 # prompt pure
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
 
 
@@ -146,7 +147,7 @@ alias cwd="et --icons --size-left --prune --disk-usage physical --dirs-first -c"
 
 
 # Z folder jumper
-. ~/.local/bin/z 
+# . ~/.local/bin/z 
 
 # call neofetch at the and to disply info
 neofetch
