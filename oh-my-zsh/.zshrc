@@ -5,6 +5,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export DOCKER_BUILDKIT=1
 
 # add some os dependent path
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
