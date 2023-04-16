@@ -5,8 +5,13 @@
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/opt/homebrew/Cellar/git/2.40.0/share/git-core/contrib/git-jump:$PATH"
 
+# add some os dependent path
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    export PATH="/usr/share/git/git-jump:$PATH"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    export PATH="/opt/homebrew/Cellar/git/2.40.0/share/git-core/contrib/git-jump:$PATH"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -87,6 +92,16 @@ plugins=(
 	)
 
 source $ZSH/oh-my-zsh.sh
+
+# os specific sources
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # fzf keybindings
+    echo "Loading unix sources"
+    source /usr/share/fzf/completion.zsh 
+    source /usr/share/fzf/key-bindings.zsh 
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Loading Mac Sources"
+fi
 
 # User configuration
 
