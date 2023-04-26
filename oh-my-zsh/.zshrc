@@ -134,21 +134,11 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# pure prompt
-# if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-#     fpath+=($HOME/.zsh/pure)
-# elif [[ "$OSTYPE" == "darwin"* ]]; then
-#     fpath+=("$(brew --prefix)/share/zsh/site-functions")
-# fi
-# zstyle :prompt:pure:git:branch color cyan
-# zstyle :prompt:pure:user color magenta
-# zstyle :prompt:pure:host color cyan
-
-# autoload -U promptinit; promptinit
-# prompt pure
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
+eval "$(atuin init zsh)"
+source $HOME/.config/atuin/_atuin
 
 
 cx() {cd "$@" && l; }
