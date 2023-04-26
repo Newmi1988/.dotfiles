@@ -151,7 +151,8 @@ alias gcof='git checkout $(git branch | fzf-tmux -d15)'
 alias v="fd --type f --hidden --exclude .git --exclude .venv | fzf-tmux --height 70% --info inline -p --preview-window '~3' --reverse  --preview 'bat --color=always {}' | xargs nvim"
 alias ll="exa --long --git -g --octal-permissions"
 alias lla="exa --long -a --git -g --octal-permissions"
-alias cwd="et --icons --size-left --prune --disk-usage physical --dirs-first -c"
+alias cwd="erd --icons --prune --disk-usage physical --dirs-first --suppress-size"
+alias ell='erd --long --human  --icons --hidden --no-git -d physical -C'
 
 
 
