@@ -154,7 +154,8 @@ alias lla="exa --long -a --git -g --octal-permissions"
 alias cwd="erd --icons --prune --disk-usage physical --dirs-first --suppress-size"
 alias ell='erd --long --human  --icons --hidden --no-git -d physical -C'
 
-
+# opam configuration
+[[ ! -r /Users/newmi/.opam/opam-init/init.zsh ]] || source /Users/newmi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # call neofetch at the and to disply info
 neofetch
