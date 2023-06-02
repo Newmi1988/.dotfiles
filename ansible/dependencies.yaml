@@ -1,0 +1,37 @@
+- name: DevTools
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Install neovim
+    ansible.builtin.package:
+      name:
+      - neovim
+      state: present
+
+  - name: Install rust unix replacements
+    ansible.builtin.package:
+      name:
+      - erdtree
+      - fzf
+      - fd
+      - exa
+      state: present
+
+  - name: Install zellij
+    ansible.builtin.package:
+      name:
+      - zellij
+      state: present
+
+  - name: Install tmux
+    ansible.builtin.package:
+      name:
+      - tmux
+      state: present
+
+  - name: Install just
+    ansible.builtin.package:
+      name:
+      - just
+      state: present
