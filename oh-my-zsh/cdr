@@ -2,9 +2,9 @@
 
 function cdr() {
     if [ -z "$1" ];
-    then 
-            echo "Specify a directory"; 
-    else 
+    then
+            echo "Specify a directory";
+    else
         cd $(findgit $1);
     fi
 }

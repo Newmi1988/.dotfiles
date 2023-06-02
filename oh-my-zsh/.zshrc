@@ -98,8 +98,8 @@ source $ZSH/oh-my-zsh.sh
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # fzf keybindings
     echo "Loading unix sources"
-    source /usr/share/fzf/completion.zsh 
-    source /usr/share/fzf/key-bindings.zsh 
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Loading Mac Sources"
 fi

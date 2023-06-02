@@ -6,7 +6,7 @@ function tss() {
         tmux switch -t $target
     else
         tmux attach -t $target
-    fi 
+    fi
 }
 
 tss
