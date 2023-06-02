@@ -153,6 +153,34 @@ alias ll="exa --long --git -g --octal-permissions"
 alias lla="exa --long -a --git -g --octal-permissions"
 alias cwd="erd --icons --prune --disk-usage physical --suppress-size"
 alias ell='erd --long --human  --icons --hidden --no-git -d physical '
+alias zj='zellij'
+
+function zms {
+    if [ -z "$1" ]
+    then
+        echo "No argument supplied"
+        zellij
+    else
+        local destination=$(findgit "$1")
+        local session_name=$(basename "$destination")
+        cd $destination && {
+            zellij a "$session_name" || {
+                echo "Creating session: $session_name"
+                zellij -s "$session_name"
+            }
+        }
+    fi
+}
+
+function fzj {
+    local session_name=$(zellij ls | fzf)
+    if [ -z "$session_name"]
+    then
+        echo "No session found with name $session_name"
+    else
+        zellij a "$session_name"
+    fi
+}
 
 # opam configuration
 [[ ! -r /Users/newmi/.opam/opam-init/init.zsh ]] || source /Users/newmi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
