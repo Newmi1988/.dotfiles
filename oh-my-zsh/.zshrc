@@ -158,7 +158,7 @@ alias zj='zellij'
 function zms {
     if [ -z "$1" ]
     then
-        echo "No argument supplied"
+        echo "No argument supplied. Starting session with random name"
         zellij
     else
         local destination=$(findgit "$1")
@@ -173,12 +173,31 @@ function zms {
 }
 
 function fzj {
-    local session_name=$(zellij ls | fzf)
-    if [ -z "$session_name"]
+    local zellij_sessions=$(zellij ls)
+    # search sessions
+    if [ -z "$zellij_sessions" ]
     then
-        echo "No session found with name $session_name"
+        echo "No sessions found"
     else
-        zellij a "$session_name"
+        local session_name=$(echo $zellij_sessions | fzf )
+        if [ -z "$session_name"]
+        then
+            echo "No session found!"
+        else
+            zellij a "$session_name"
+        fi
+    fi
+
+}
+
+function fzjk {
+    local zellij_sessions=$(zellij ls)
+    if [ -z "$zellij_sessions" ]
+    then
+        echo "No sessions found"
+    else
+        local session_to_kill=$(echo $zellij_sessions | fzf)
+        zellij k "$session_to_kill"
     fi
 }
 
