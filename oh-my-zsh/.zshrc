@@ -155,7 +155,7 @@ alias cwd="erd --icons --prune --disk-usage physical --suppress-size"
 alias ell='erd --long --human  --icons --hidden --no-git -d physical '
 alias zj='zellij'
 
-function zms {
+function zns {
     if [ -z "$1" ]
     then
         echo "No argument supplied. Starting session with random name"
