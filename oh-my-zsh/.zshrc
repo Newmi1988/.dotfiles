@@ -157,7 +157,7 @@ alias zj='zellij'
 alias sc='source ~/.zshrc'
 alias rp='zns ~/rust'
 alias pp='zns ~/python'
-alias gp='zns ~/go'
+alias gpp='zns ~/go'
 alias dpsfzf='docker ps | fzf'
 
 function dif {
