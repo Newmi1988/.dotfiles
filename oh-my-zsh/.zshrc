@@ -154,6 +154,69 @@ alias lla="exa --long -a --git -g --octal-permissions"
 alias cwd="erd --icons --prune --disk-usage physical --suppress-size"
 alias ell='erd --long --human  --icons --hidden --no-git -d physical '
 alias zj='zellij'
+alias sc='source ~/.zshrc'
+alias rp='zns ~/rust'
+alias pp='zns ~/python'
+alias gp='zns ~/go'
+alias dpsfzf='docker ps | fzf'
+
+function dif {
+    local image=$(docker images | tail -n +2 | fzf  | awk '{print $1 ":" $2}')
+    echo "$image"
+}
+
+function drif {
+    # run docker image interactive with supplied command
+    local image=$(dif)
+    if [ -z "$image" ]
+    then
+        echo "No image specified"
+    else
+        echo "docker run -it $image $@"
+        docker run -it "$image" "$@"
+    fi
+}
+
+function drdf {
+    # run docker image interactive with supplied command
+    local image=$(dif)
+    if [ -z "$image" ]
+    then
+        echo "No image specified"
+    else
+        echo "docker run $@ $image"
+        docker run "$@" "$image"
+    fi
+}
+
+function dpsf {
+    # filter the running containers
+    local image=$(docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.Names}}" | tail -n +2 | fzf | awk '{print $1}')
+    echo "$image"
+}
+
+function deif {
+    # exec command in running docker image with supplied command
+    local image=$(dpsf)
+    if [ -z "$image" ]
+    then
+        echo "No image specified"
+    else
+        echo "docker exec -it $image $@"
+        docker exec -it "$image" "$@"
+    fi
+}
+
+function dkf {
+    local image=$(dpsf)
+    if [ -z "$image" ]
+    then
+        echo "No image specified"
+    else
+        echo "docker kill $@ $image"
+        docker kill "$@" "$image"
+    fi
+}
 
 function zns {
     if [ -z "$1" ]
@@ -162,13 +225,18 @@ function zns {
         zellij
     else
         local destination=$(findgit "$1")
-        local session_name=$(basename "$destination")
-        cd $destination && {
-            zellij a "$session_name" || {
-                echo "Creating session: $session_name"
-                zellij -s "$session_name"
+        if [ -z "$destination" ]
+        then
+            echo "No destination given"
+        else
+            local session_name=$(basename "$destination")
+            cd $destination && {
+                zellij a "$session_name" || {
+                    echo "Creating session: $session_name"
+                    zellij -s "$session_name"
+                }
             }
-        }
+        fi
     fi
 }
 
