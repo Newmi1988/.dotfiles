@@ -1,3 +1,4 @@
+zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -90,6 +91,7 @@ plugins=(
 	rust
     you-should-use
     autoupdate
+    zsh-syntax-highlighting
 	)
 
 source $ZSH/oh-my-zsh.sh
@@ -271,8 +273,7 @@ function fzjk {
 
 # opam configuration
 [[ ! -r /Users/newmi/.opam/opam-init/init.zsh ]] || source /Users/newmi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # call neofetch at the and to disply info
 neofetch
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
