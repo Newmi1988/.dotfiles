@@ -15,7 +15,7 @@
       - erdtree
       - fzf
       - fd
-      - exa
+      - eza
       - zoxide
       state: present
 
