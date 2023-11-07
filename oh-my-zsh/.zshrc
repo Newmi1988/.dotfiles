@@ -12,7 +12,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export PATH="/usr/share/git/git-jump:$PATH"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="/opt/homebrew/Cellar/git/2.40.0/share/git-core/contrib/git-jump:$PATH"
+    export LLDV_VSCODE="$(brew --prefix llvm)/bin"
 fi
+
+BAT_THEME="Catppuccin-mocha"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -161,6 +164,16 @@ alias pp='zns ~/python'
 alias gpp='zns ~/go'
 alias dpsfzf='docker ps | fzf'
 
+function cdd {
+    # search visited dir with fzf and switch to it
+    local target_dir="$(dirs | xargs -n1 | fzf)"
+    if [ -z "$target_dir" ]; then
+        echo "No directory selected"
+    else
+        cd $(echo "$target_dir" | sed "s#^~#$HOME#")
+    fi
+}
+
 function dif {
     local image=$(docker images | tail -n +2 | fzf  | awk '{print $1 ":" $2}')
     echo "$image"
@@ -216,6 +229,71 @@ function dkf {
     else
         echo "docker kill $@ $image"
         docker kill "$@" "$image"
+    fi
+}
+
+function tss() {
+    target=$(tmux ls | fzf-tmux -p --reverse | cut -d ":" -f1)
+    if [ -n "$TMUX" ]; then
+        tmux switch -t $target
+    else
+        tmux attach -t $target
+    fi
+}
+
+function tsd() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        cat << EOF
+tmux session with directory
+
+Usage:
+    tsd <name> <dir>
+EOF
+
+    else
+        if [ -n "$TMUX" ]; then
+            tmux new -s $1 -c $2 -d
+            tmux switch -t $1
+        else
+            tmux new -s $1 -c $2
+            tmux attach -t $1
+        fi
+    fi
+}
+
+function tns() {
+    if [ -n "$TMUX" ]; then
+        echo "WARNING: tmux session nesting not allowed";
+    else
+        tmux attach -t $1 || tmux new -s $1
+    fi
+}
+
+function tms() {
+    if [ -z "$1" ]; then
+            echo "Specify a directory";
+    else
+        target=$(findgit $1)
+        session_name=$(basename $target)
+        tsd $session_name $target
+    fi
+}
+
+function cdr() {
+    if [ -z "$1" ];
+    then
+            echo "Specify a directory";
+    else
+        cd $(findgit $1);
+    fi
+}
+
+function findgit() {
+    if [ -z "$1" ];
+    then
+            echo "Specify a directory";
+    else
+        echo $(fd --type d -H .git$ --full-path $1 | cut -d '.' -f1 | fzf-tmux -p --reverse)
     fi
 }
 
