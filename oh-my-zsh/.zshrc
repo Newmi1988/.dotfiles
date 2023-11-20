@@ -10,9 +10,10 @@ export DOCKER_BUILDKIT=1
 # add some os dependent path
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export PATH="/usr/share/git/git-jump:$PATH"
+    export LLDB_VSCODE="/usr/bin/lldb-vscode"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="/opt/homebrew/Cellar/git/2.40.0/share/git-core/contrib/git-jump:$PATH"
-    export LLDV_VSCODE="$(brew --prefix llvm)/bin"
+    export LLDB_VSCODE="$(brew --prefix llvm)/bin/lldb-vscode"
 fi
 
 BAT_THEME="Catppuccin-mocha"

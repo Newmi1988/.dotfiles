@@ -36,3 +36,21 @@
       name:
       - just
       state: present
+
+  - name: Install llvm
+    ansible.builtin.package:
+      name:
+      - llvm
+      state: present
+
+  - name: Install llvd
+    when: 
+    - ansible_facts['distribution'] == "Archlinux"
+    ansible.builtin.package:
+      name:
+      - lldb
+      state: present
+
+  - name: Gather the package facts
+    ansible.builtin.package_facts:
+      manager: auto
