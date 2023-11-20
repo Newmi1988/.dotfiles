@@ -269,6 +269,16 @@ function tns() {
     fi
 }
 
+function ftk {
+    local session=$(tmux ls | fzf | cut -d ':' -f1)
+    if [ -z "$session" ]; then
+        echo "No session specified"
+    else
+        echo "Killing tmux session $session"
+        tmux kill-session -t "$session"
+    fi
+}
+
 function tms() {
     if [ -z "$1" ]; then
             echo "Specify a directory";
