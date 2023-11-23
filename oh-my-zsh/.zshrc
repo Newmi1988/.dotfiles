@@ -12,7 +12,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export PATH="/usr/share/git/git-jump:$PATH"
     export LLDB_VSCODE="/usr/bin/lldb-vscode"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    export PATH="/opt/homebrew/Cellar/git/2.40.0/share/git-core/contrib/git-jump:$PATH"
+    export PATH="/opt/homebrew/Cellar/git/2.43.0/share/git-core/contrib/git-jump:$PATH"
     export LLDB_VSCODE="$(brew --prefix llvm)/bin/lldb-vscode"
 fi
 
