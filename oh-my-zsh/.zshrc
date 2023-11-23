@@ -164,6 +164,8 @@ alias rp='zns ~/rust'
 alias pp='zns ~/python'
 alias gpp='zns ~/go'
 alias dpsfzf='docker ps | fzf'
+alias ollamastart="brew services start ollama"
+alias ollamastop="brew services stop ollama"
 
 function cdd {
     # search visited dir with fzf and switch to it
