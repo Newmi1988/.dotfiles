@@ -312,7 +312,7 @@ function findgit() {
     then
             echo "Specify a directory";
     else
-        echo $(fd --type d -H .git$ --full-path $1 | cut -d '.' -f1 | fzf-tmux -p --reverse)
+        echo $(fd --type d -H .git$ --no-ignore --full-path $1 | cut -d '.' -f1 | fzf-tmux -p --reverse)
     fi
 }
 
