@@ -166,6 +166,12 @@ alias gpp='zns ~/go'
 alias dpsfzf='docker ps | fzf'
 alias ollamastart="brew services start ollama"
 alias ollamastop="brew services stop ollama"
+alias nv="nvim"
+alias gdc='git diff --cached'
+
+function ghrc {
+    gh repo clone $(gh repo list | fzf | awk '{print $1}')
+}
 
 function cdd {
     # search visited dir with fzf and switch to it
