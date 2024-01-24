@@ -1,17 +1,18 @@
 # launch alacritty
-cmd - return : open -na /Applications/Alacritty.app
+# cmd - return : open -na /Applications/Alacritty.app
+cmd - return : wezterm start
 
 # -- Changing Window Focus --
 
 # change window focus within space
-alt - s : yabai -m window --focus south
-alt - w : yabai -m window --focus north
-alt - a : yabai -m window --focus west
-alt - d : yabai -m window --focus east
+# alt - s : yabai -m window --focus south
+# alt - w : yabai -m window --focus north
+# alt - a : yabai -m window --focus west
+# alt - d : yabai -m window --focus east
 
 #change focus between external displays (left and right)
-alt - s: yabai -m display --focus west
-alt - g: yabai -m display --focus east
+# alt - s: yabai -m display --focus west
+# alt - g: yabai -m display --focus east
 
 # -- Modifying the Layout --
 

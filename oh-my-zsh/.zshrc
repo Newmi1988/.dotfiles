@@ -168,6 +168,7 @@ alias ollamastart="brew services start ollama"
 alias ollamastop="brew services stop ollama"
 alias nv="nvim"
 alias gdc='git diff --cached'
+alias cdgr='cd $(git rev-parse --show-toplevel)'
 
 function ghrc {
     gh repo clone $(gh repo list | fzf | awk '{print $1}')
