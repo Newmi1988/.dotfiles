@@ -418,6 +418,7 @@ multiplier = 3
 [window]
 opacity = 0.95
 decorations = "Buttonless"
+option_as_alt = "Both"
 
 [window.padding]
 x = 5
