@@ -14,6 +14,15 @@ local appereance = {
     window_decorations = "RESIZE",
     window_background_opacity = 0.9375,
     color_scheme = "Catppuccin Mocha", -- or Macchiato, Frappe, Latte
+    line_height = 0.9,
+    ---- Cursor Style Options
+    -- SteadyBlock
+    -- BlinkingBlock
+    -- SteadyUnderline
+    -- BlinkingUnderline
+    -- SteadyBar
+    -- BlinkingBar
+    default_cursor_style = 'SteadyUnderline'
 }
 
 local keys = {
