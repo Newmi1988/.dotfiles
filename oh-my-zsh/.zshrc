@@ -138,10 +138,8 @@ fi
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-
 eval "$(atuin init zsh)"
 source $HOME/.config/atuin/_atuin
 
@@ -160,9 +158,13 @@ alias cwd="erd --icons --prune --disk-usage physical --suppress-size"
 alias ell='erd --long --human  --icons --hidden --no-git -d physical '
 alias zj='zellij'
 alias sc='source ~/.zshrc'
-alias rp='zns ~/rust'
-alias pp='zns ~/python'
-alias gpp='zns ~/go'
+alias zrp='zns ~/rust'
+alias zpp='zns ~/python'
+alias zgpp='zns ~/go'
+alias tm='tmux'
+alias trp='tms ~/rust'
+alias tpp='tms ~/python'
+alias tgp='tms ~/go'
 alias dpsfzf='docker ps | fzf'
 alias ollamastart="brew services start ollama"
 alias ollamastop="brew services stop ollama"
@@ -242,7 +244,7 @@ function dkf {
     fi
 }
 
-function tss() {
+function ftm {
     target=$(tmux ls | fzf-tmux -p --reverse | cut -d ":" -f1)
     if [ -n "$TMUX" ]; then
         tmux switch -t $target
@@ -279,7 +281,7 @@ function tns() {
     fi
 }
 
-function ftk {
+function ftmk {
     local session=$(tmux ls | fzf | cut -d ':' -f1)
     if [ -z "$session" ]; then
         echo "No session specified"
@@ -290,12 +292,12 @@ function ftk {
 }
 
 function tms() {
-    if [ -z "$1" ]; then
-            echo "Specify a directory";
+    local destination=$(findgit "$1")
+    if [ -z "$destination" ]; then
+        echo "No destination given"
     else
-        target=$(findgit $1)
-        session_name=$(basename $target)
-        tsd $session_name $target
+        session_name=$(basename $destination)
+        tsd $session_name $destination
     fi
 }
 
