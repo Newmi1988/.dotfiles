@@ -171,6 +171,7 @@ alias ollamastop="brew services stop ollama"
 alias nv="nvim"
 alias gdc='git diff --cached'
 alias cdgr='cd $(git rev-parse --show-toplevel)'
+alias clr='clear'
 
 function ghrc {
     gh repo clone $(gh repo list | fzf | awk '{print $1}')
@@ -245,13 +246,24 @@ function dkf {
 }
 
 function ftm {
+    if [ -n "$ZELLIJ_SESSION_NAME" ]; then
+        echo "Found active zellij session: $ZELLIJ_SESSION_NAME."
+        echo "No nesting allowed."
+        return 1
+    fi
     target=$(tmux ls | fzf-tmux -p --reverse | cut -d ":" -f1)
-    if [ -n "$TMUX" ]; then
-        tmux switch -t $target
+    if [ -z "$target" ]; then
+        echo "No session selected"
     else
-        tmux attach -t $target
+        if [ -n "$TMUX" ]; then
+            tmux switch -t $target
+        else
+            tmux attach -t $target
+        fi
     fi
 }
+
+bindkey -s '^o' 'ftm^M'
 
 function tsd() {
     if [ -z "$1" ] || [ -z "$2" ]; then
@@ -342,31 +354,41 @@ function zns {
 }
 
 function fzj {
-    local zellij_sessions=$(zellij ls)
+    local zellij_sessions=$(zellij ls -n)
     # search sessions
     if [ -z "$zellij_sessions" ]
     then
-        echo "No sessions found"
+        echo "No session selected."
     else
-        local session_name=$(echo $zellij_sessions | fzf )
-        if [ -z "$session_name"]
-        then
-            echo "No session found!"
+        local session_name=$(echo $zellij_sessions | fzf | awk '{print $1}')
+        if [ -z "$session_name"]; then
+            echo "No session selected."
         else
+            echo "$session_name"
             zellij a "$session_name"
         fi
     fi
-
 }
 
 function fzjk {
-    local zellij_sessions=$(zellij ls)
+    local zellij_sessions=$(zellij ls -n)
     if [ -z "$zellij_sessions" ]
     then
-        echo "No sessions found"
+        echo "No session selected."
     else
-        local session_to_kill=$(echo $zellij_sessions | fzf)
+        local session_to_kill=$(echo $zellij_sessions | fzf | awk '{print $1}')
         zellij k "$session_to_kill"
+    fi
+}
+
+function fzjd {
+    local zellij_sessions=$(zellij ls -n)
+    if [ -z "$zellij_sessions" ]
+    then
+        echo "No session selected."
+    else
+        local session_to_kill=$(echo $zellij_sessions | fzf | awk '{print $1}')
+        zellij d "$session_to_kill"
     fi
 }
 
