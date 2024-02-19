@@ -246,6 +246,10 @@ function dkf {
 }
 
 function ftm {
+    if ! $(tmux -ls >/dev/null 2>&1); then
+        echo "No active tmux instance found"
+        return 1
+    fi
     if [ -n "$ZELLIJ_SESSION_NAME" ]; then
         echo "Found active zellij session: $ZELLIJ_SESSION_NAME."
         echo "No nesting allowed."
