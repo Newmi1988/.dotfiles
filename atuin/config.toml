@@ -13,7 +13,7 @@
 # dialect = "us"
 
 ## enable or disable automatic sync
-# auto_sync = true
+auto_sync = true
 
 ## enable or disable automatic update checks
 # update_check = true
@@ -41,7 +41,7 @@
 
 ## which style to use
 ## possible values: auto, full, compact
-# style = "auto"
+style = "compact"
 
 ## the maximum number of lines the interface should take up
 ## set it to 0 to always go full screen
@@ -73,3 +73,5 @@
 #   "^secret-cmd",
 #   "^innocuous-cmd .*--secret=.+"
 # ]
+
+keymap_mode = "vim-insert"
