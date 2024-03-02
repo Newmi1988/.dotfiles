@@ -431,3 +431,8 @@ n ()
 # opam configuration
 [[ ! -r /Users/newmi/.opam/opam-init/init.zsh ]] || source /Users/newmi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+echo "Hello $USER@$(hostname)" | cowsay -f eyes
