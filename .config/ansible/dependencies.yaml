@@ -37,6 +37,12 @@
       - just
       state: present
 
+  - name: Install gum
+    ansible.builtin.package:
+      name:
+      - gum
+      state: present
+
   - name: Install stow
     ansible.builtin.package:
       name:
