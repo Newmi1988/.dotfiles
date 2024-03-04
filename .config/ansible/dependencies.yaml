@@ -37,9 +37,10 @@
       - just
       state: present
 
-  - name: Install gum
+  - name: Install charmbracelet tools
     ansible.builtin.package:
       name:
+      - glow
       - gum
       state: present
 
@@ -56,13 +57,9 @@
       state: present
 
   - name: Install llvd
-    when: 
+    when:
     - ansible_facts['distribution'] == "Archlinux"
     ansible.builtin.package:
       name:
       - lldb
       state: present
-
-  - name: Gather the package facts
-    ansible.builtin.package_facts:
-      manager: auto
