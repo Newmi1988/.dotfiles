@@ -18,7 +18,7 @@ Run the following commands
 git submodule update --init
 ```
 If you can't clone the repository you may have to change the URI in `.gitmodules`.
-My [neovim](https://github.com/neovim/neovim) configuration can be found [here](https://github.com/Newmi1988/nvim_setup) and used separately.
+My [neovim](https://github.com/neovim/neovim) configuration can be found [here](https://github.com/Newmi1988/nvim_setup) and can be used separately.
 
 ## Create the symbolic links 🚀
 I use `stow` to create the symbolic links to apply these configurations.
