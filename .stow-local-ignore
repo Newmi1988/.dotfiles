@@ -24,3 +24,5 @@ _darcs
 
 \.justfile
 \.pre-commit-config.yaml
+ansible
+dependencies.yaml
