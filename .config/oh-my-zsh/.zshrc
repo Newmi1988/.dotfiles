@@ -172,6 +172,7 @@ alias nv="nvim"
 alias gdc='git diff --cached'
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 alias clr='clear'
+alias afzf='alias | fzf'
 
 function ghrc {
     gh repo clone $(gh repo list | fzf | awk '{print $1}')
@@ -427,6 +428,21 @@ n ()
     }
 }
 
+function tmg {
+    local folder_to_search=$(gum filter "rust" "python" "repos" "go" ".config" ".dotfiles")
+    local target_folder_search_results=$(fd --type d -H . "$HOME/$folder_to_search" | fzf)
+    if [ -z "$target_folder_search_results" ]; then
+        printf "No folder selected"
+    else
+        printf "Please select a session name:\n"
+        local placeholder=$(basename "$target_folder_search_results")
+        local session_name=$(gum input \
+            --placeholder "$placeholder" \
+            --value "$placeholder"
+        )
+        tsd "$session_name" "$target_folder_search_results"
+    fi
+}
 
 # opam configuration
 [[ ! -r /Users/newmi/.opam/opam-init/init.zsh ]] || source /Users/newmi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
