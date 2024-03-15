@@ -56,6 +56,12 @@
       - stow
       state: present
 
+  - name: Install cowsay
+    ansible.builtin.package:
+      name:
+      - cowsay
+      state: present
+
   - name: Install llvm
     ansible.builtin.package:
       name:
