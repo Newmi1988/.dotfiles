@@ -37,6 +37,12 @@
       - just
       state: present
 
+  - name: Install pre-commit
+    ansible.builtin.package:
+      name:
+      - pre-commit
+      state: present
+
   - name: Install charmbracelet tools
     ansible.builtin.package:
       name:
