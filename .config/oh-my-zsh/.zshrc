@@ -466,4 +466,4 @@ function tmg {
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
-echo "Hello $USER@$(hostname)" | cowsay -f eyes
+echo "Hello $USER@$(hostname 2>/dev/null || echo $NAME)" | cowsay -f eyes
