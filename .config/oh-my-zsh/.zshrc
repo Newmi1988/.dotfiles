@@ -174,18 +174,19 @@ alias clr='clear'
 alias afzf='alias | fzf'
 
 function gcof {
+    # checkout local or remote git branches with fzf
     local branch=$(git branch -a \
         | fzf \
         | tr -d '[:blank:]' \
         | sed 's!remotes/origin/!!' \
         | sed 's!*!!'
-    ) 
+    )
     if [ -z "$branch" ]; then
         echo "No branch selected"
     else
-        printf "Checking out branch $branch \n" 
+        printf "Checking out branch $branch \n"
         git checkout "$branch"
-    fi 
+    fi
 
 }
 
