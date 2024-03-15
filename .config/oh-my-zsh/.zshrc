@@ -150,7 +150,6 @@ alias psh="poetry shell"
 alias pin="poetry install"
 alias pup="poetry unpdate"
 alias k="kubectl"
-alias gcof='git checkout $(git branch | fzf-tmux -d15)'
 alias v="fd --type f --hidden --exclude .git --exclude .venv | fzf-tmux --height 70% --info inline -p --preview-window '~3' --reverse  --preview 'bat --color=always {}' | xargs nvim"
 alias ll="eza --long --git -g --octal-permissions"
 alias lla="eza --long -a --git -g --octal-permissions"
@@ -173,6 +172,22 @@ alias gdc='git diff --cached'
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 alias clr='clear'
 alias afzf='alias | fzf'
+
+function gcof {
+    local branch=$(git branch -a \
+        | fzf \
+        | tr -d '[:blank:]' \
+        | sed 's!remotes/origin/!!' \
+        | sed 's!*!!'
+    ) 
+    if [ -z "$branch" ]; then
+        echo "No branch selected"
+    else
+        printf "Checking out branch $branch \n" 
+        git checkout "$branch"
+    fi 
+
+}
 
 function ghrc {
     gh repo clone $(gh repo list | fzf | awk '{print $1}')
