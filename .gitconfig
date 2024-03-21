@@ -6,26 +6,22 @@
 [core]
     editor = nvim
     pager = delta
+	excludeFiles = ~/.config/git/ignore
 [push]
     default = current
 	autosetupremote = true
 [pull]
 	rebase = true
-
 [interactive]
     diffFilter = delta --color-only --features=interactive
-
 [delta]
     features = decorations
     line-numbers = true
     side-by-side = true
     line-numbers-left-format = ""
     line-numbers-right-format = "│ "
-
-
 [delta "interactive"]
     keep-plus-minus-markers = false
-
 [delta "decorations"]
     commit-decoration-style = blue ol
     commit-style = raw
@@ -36,3 +32,24 @@
     hunk-header-style = file line-number syntax
 [rebase]
 	autostash = true
+	autosquash = true
+	updateRefs = true
+[help]
+	autocorrect = prompt
+[diff]
+	algorithm = histogram
+	submodule = log
+[status]
+	submoduleSummary = true
+[submodule]
+	recurse = true
+[branch]
+	sort = -committerdate
+[transfer]
+	fsckobjects = true
+[fetch]
+	fsckobjects = true
+	prune = true
+	prunetags = true
+[receive]
+	fsckObjects = true
