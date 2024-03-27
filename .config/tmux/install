@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-ln -sni ~/.config/tmux/tms ~/.local/bin/tms
-ln -sni ~/.config/tmux/tns ~/.local/bin/tns
-ln -sni ~/.config/tmux/tsd ~/.local/bin/tsd
-ln -sni ~/.config/tmux/tss ~/.local/bin/tss

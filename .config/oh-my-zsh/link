@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-ln -s ~/.config/oh-my-zsh/.zshrc ~/.zshrc
