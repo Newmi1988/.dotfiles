@@ -44,6 +44,7 @@ local behaviour = {
     },
     send_composed_key_when_left_alt_is_pressed = true,
     send_composed_key_when_right_alt_is_pressed = true,
+    disable_default_key_bindings = true
 }
 
 config = update(config,appereance)
