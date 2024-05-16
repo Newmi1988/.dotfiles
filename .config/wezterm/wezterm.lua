@@ -31,6 +31,21 @@ local keys = {
         mods = 'CMD',
         action = wezterm.action.CloseCurrentPane { confirm = true },
     },
+    {
+        key = 'c',
+        mods = 'CMD',
+        action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection',
+    },
+    {
+        key = 'v',
+        mods = 'CMD',
+        action = wezterm.action.PasteFrom 'Clipboard',
+    },
+    {
+        key = 'V',
+        mods = 'CMD',
+        action = wezterm.action.PasteFrom 'PrimarySelection'
+    },
 }
 
 local behaviour = {
