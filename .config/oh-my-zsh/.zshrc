@@ -173,6 +173,7 @@ alias gdc='git diff --cached'
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 alias clr='clear'
 alias afzf='alias | fzf'
+alias cdf='cd $(fd --type d -d 2 | fzf)'
 
 function gcof {
     # checkout local or remote git branches with fzf
