@@ -168,6 +168,7 @@ alias tgp='tms ~/go'
 alias dpsfzf='docker ps | fzf'
 alias ollamastart="brew services start ollama"
 alias ollamastop="brew services stop ollama"
+alias brup='brew upgrade'
 alias nv="nvim"
 alias gdc='git diff --cached'
 alias cdgr='cd $(git rev-parse --show-toplevel)'
