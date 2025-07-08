@@ -1,0 +1,1 @@
+../../.dotfiles/.config/oh-my-zsh/.zshrc

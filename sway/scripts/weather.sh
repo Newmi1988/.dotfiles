@@ -1,0 +1,1 @@
+../../../.dotfiles/.config/sway/scripts/weather.sh
