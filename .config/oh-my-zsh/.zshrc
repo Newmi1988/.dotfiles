@@ -462,8 +462,10 @@ function tmg {
 # opam configuration
 [[ ! -r /Users/newmi/.opam/opam-init/init.zsh ]] || source /Users/newmi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "/home/newmi/.ghcup/env" ] && . "/home/newmi/.ghcup/env" # ghcup-env
 
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
-echo "Hello $USER@$(hostname 2>/dev/null || echo $NAME)" | cowsay -f eyes
+# echo "Hello $USER@$(hostname 2>/dev/null || echo $NAME)" | cowsay -f eyes
+fastfetch
