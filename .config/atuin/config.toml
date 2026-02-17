@@ -74,4 +74,4 @@ style = "compact"
 #   "^innocuous-cmd .*--secret=.+"
 # ]
 
-keymap_mode = "vim-insert"
+# keymap_mode = "vim-insert"

@@ -95,7 +95,6 @@ plugins=(
     you-should-use
     autoupdate
     zsh-syntax-highlighting
-    zsh-vi-mode
 	)
 
 source $ZSH/oh-my-zsh.sh

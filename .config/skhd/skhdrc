@@ -1,6 +1,6 @@
 # launch alacritty
 # cmd - return : open -na /Applications/Alacritty.app
-cmd - return : wezterm start
+cmd - return : open -na ghostty
 
 # -- Changing Window Focus --
 
