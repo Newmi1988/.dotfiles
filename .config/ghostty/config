@@ -2,3 +2,6 @@ theme = Kanagawa Wave
 background-opacity = 0.975
 background-blur-radius = 10
 macos-titlebar-style = hidden
+shell-integration = zsh
+window-save-state = always
+quit-after-last-window-closed=true
