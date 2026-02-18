@@ -153,13 +153,8 @@ alias cwd="erd --icons --prune --disk-usage physical --suppress-size"
 alias ell='erd --long --human  --icons --hidden --no-git -d physical '
 alias zj='zellij'
 alias sc='source ~/.zshrc'
-alias zrp='zns ~/rust'
-alias zpp='zns ~/python'
-alias zgpp='zns ~/go'
 alias tm='tmux'
-alias trp='tms ~/rust'
-alias tpp='tms ~/python'
-alias tgp='tms ~/go'
+alias tor='tms ~/repos/'
 alias dpsfzf='docker ps | fzf'
 alias ollamastart="brew services start ollama"
 alias ollamastop="brew services stop ollama"
@@ -304,6 +299,11 @@ EOF
     fi
 }
 
+function ts() {
+    local session_name=$(formatSessionName "${PWD}")
+    tsd $session_name "${PWD}"
+}
+
 function tns() {
     if [ -n "$TMUX" ]; then
         echo "WARNING: tmux session nesting not allowed";
@@ -322,14 +322,28 @@ function ftmk {
     fi
 }
 
-function tms() {
-    local destination=$(findgit "$1")
+function formatSessionName() {
+    printf '%s\n' "$1" | sed "s|^$HOME/||" | sed 's|^\.|_|'
+}
+
+# create a session given a directory
+function createts() {
     if [ -z "$destination" ]; then
         echo "No destination given"
     else
-        session_name=$(basename $destination)
+        session_name=$(formatSessionName "${destination}")
         tsd $session_name $destination
     fi
+}
+
+function tms() {
+    local destination=$(findgit "$1")
+    createts "${destination}"
+}
+
+function toz() {
+    local destination=$(zoxide query -i)
+    createts "${destination}"
 }
 
 function cdr() {
@@ -442,19 +456,35 @@ n ()
     }
 }
 
-function tmg {
-    local folder_to_search=$(gum filter "rust" "python" "repos" "go" ".config" ".dotfiles")
-    local target_folder_search_results=$(fd --type d -H . "$HOME/$folder_to_search" | fzf)
-    if [ -z "$target_folder_search_results" ]; then
-        printf "No folder selected"
-    else
-        printf "Please select a session name:\n"
-        local placeholder=$(basename "$target_folder_search_results")
-        local session_name=$(gum input \
-            --placeholder "$placeholder" \
-            --value "$placeholder"
+function fuzzyDiff {
+    # fuzzy select a image
+    local fileToDiff=$(
+        fd --type f \
+            --hidden \
+            --exclude .git \
+            --exclude .venv \
+        | fzf-tmux --height 70% \
+            --info inline \
+            -p \
+            --preview-window '~3' \
+            --reverse  \
+            --preview 'bat --color=always {}' \
+    )
+
+    if [ -z "$1" ]; then
+        # use fuzzy finding to specify a branch
+        local branch=$(
+            git for-each-ref --format='%(refname:short)' refs/ \
+            | fzf-tmux --height 70% \
+                --info inline \
+                -p \
+                --preview-window '~3' \
+                --reverse  \
         )
-        tsd "$session_name" "$target_folder_search_results"
+        git diff "${branch}" -- "${fileToDiff}"
+    else
+        # use the provided branch name
+        git diff "$1" -- "${fileToDiff}"
     fi
 }
 
