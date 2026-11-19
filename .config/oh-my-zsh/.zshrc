@@ -142,6 +142,7 @@ source $HOME/.config/atuin/_atuin
 
 cx() {cd "$@" && l; }
 
+alias venv='source .venv/bin/activate'
 alias psh="poetry shell"
 alias pin="poetry install"
 alias pup="poetry unpdate"
@@ -277,7 +278,11 @@ function ftm {
     fi
 }
 
-bindkey -s '^o' 'ftm^M'
+if [ -n "$REX_SESSION" ]; then
+    bindkey -s '^o' 'frx^M'
+else
+    bindkey -s '^o' 'ftm^M'
+fi
 
 function tsd() {
     if [ -z "$1" ] || [ -z "$2" ]; then
@@ -344,6 +349,121 @@ function tms() {
 function toz() {
     local destination=$(zoxide query -i)
     createts "${destination}"
+}
+
+# Rex session workflow (tmux-style)
+alias rx='rex'
+alias ror='rms ~/repos/'
+
+function frx() {
+    local sessions selected session_id
+    sessions=$(rex ls --json | jq -r '.sessions[]? | "\(.label)\t\(.session_id)"')
+    if [ -z "$sessions" ]; then
+        return 0
+    fi
+    selected=$(printf '%s\n' "$sessions" | fzf --reverse --with-nth=1 --delimiter=$'\t' --ansi --header="Select Rex session" --preview='rex capture -s {2} --format=vt --trim' --preview-window='right,60%,follow')
+    if [ -z "$selected" ]; then
+        return 0
+    fi
+    session_id=${selected##*$'\t'}
+    rex do session.select session_id="$session_id"
+}
+
+function rsd() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        cat << EOF
+Rex session with directory
+
+Usage:
+    rsd <name> <dir>
+EOF
+        return 1
+    fi
+
+    local name="$1" dir="$2" sessions_json session_id
+    if ! sessions_json=$(rex ls --json); then
+        echo "Unable to list Rex sessions" >&2
+        return 1
+    fi
+    session_id=$(printf '%s' "$sessions_json" | jq -r --arg label "$name" '.sessions[]? | select(.label == $label) | .session_id' | head -n 1)
+    if [ -n "$session_id" ]; then
+        rex do session.select session_id="$session_id"
+        return $?
+    fi
+
+    local created
+    if ! created=$(rex new "$name" -c "$dir" --json); then
+        echo "Unable to create Rex session: $name" >&2
+        return 1
+    fi
+    session_id=$(printf '%s' "$created" | jq -r '.session_id // empty')
+    if [ -z "$session_id" ]; then
+        echo "Rex did not return a session ID for: $name" >&2
+        return 1
+    fi
+    rex do session.select session_id="$session_id"
+}
+
+function rs() {
+    local session_name
+    if [ -n "$1" ]; then
+        session_name="$1"
+    else
+        session_name=$(formatSessionName "${PWD}")
+    fi
+    rsd "$session_name" "${PWD}"
+}
+
+function rns() {
+    if [ -z "$1" ]; then
+        echo "Usage: rns <name>" >&2
+        return 1
+    fi
+    rsd "$1" "${PWD}"
+}
+
+function frxk() {
+    local sessions selected session_id
+    sessions=$(rex ls --json | jq -r '.sessions[]? | "\(.label)\t\(.session_id)"')
+    if [ -z "$sessions" ]; then
+        return 0
+    fi
+    selected=$(printf '%s\n' "$sessions" | fzf --reverse --with-nth=1 --header="Select Rex session to kill")
+    if [ -z "$selected" ]; then
+        return 0
+    fi
+    session_id=${selected##*$'\t'}
+    rex kill "$session_id"
+}
+
+function creaters() {
+    local destination="$1" session_name
+    if [ -z "$destination" ]; then
+        echo "No destination given" >&2
+        return 1
+    fi
+    session_name=$(formatSessionName "$destination")
+    rsd "$session_name" "$destination"
+}
+
+function rms() {
+    local search_root="${1:-$PWD}" destination
+    destination=$(findgit "$search_root")
+    if [ -z "$destination" ]; then
+        echo "No git repository selected"
+        return 1
+    fi
+    creaters "$destination"
+}
+
+function roz() {
+    local destination
+    destination=$(zoxide query -i)
+    if [ -z "$destination" ]; then
+        echo "No destination selected"
+        return 1
+    fi
+    creaters "$destination"
 }
 
 function cdr() {
